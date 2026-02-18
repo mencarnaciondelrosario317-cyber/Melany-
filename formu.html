@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formularios Gemelos 💖👑</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(-45deg,#ff9ecf,#ff69b4,#ffc0cb,#ffb6c1);
+background-size:400% 400%;
+animation:bgMove 8s infinite alternate;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+100%{background-position:100% 50%;}
+}
+
+.wrapper{
+display:flex;
+justify-content:center;
+gap:40px;
+margin-top:60px;
+position:relative;
+z-index:2;
+}
+
+.container{
+width:350px;
+padding:30px;
+background:rgba(255,240,246,0.95);
+border-radius:40px;
+box-shadow:0 0 40px #ff1493;
+text-align:center;
+animation:float 3s ease-in-out infinite;
+transition:.3s;
+}
+
+.container:hover{
+transform:scale(1.05) rotate(1deg);
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-15px);}
+}
+
+h2{
+font-family:'Pacifico',cursive;
+background:linear-gradient(90deg,#ff1493,#ff69b4,#ff00ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin-bottom:10px;
+border-radius:25px;
+border:2px solid #ff69b4;
+background:#ffe6f0;
+transition:.3s;
+}
+
+input:focus,textarea:focus{
+transform:scale(1.1);
+box-shadow:0 0 20px #ff1493;
+}
+
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:30px;
+background:linear-gradient(45deg,#ff1493,#ff69b4);
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.15);
+}
+
+.heart,.sparkle{
+position:absolute;
+pointer-events:none;
+animation:rise linear forwards;
+}
+
+@keyframes rise{
+from{transform:translateY(0) scale(1);opacity:1;}
+to{transform:translateY(-120vh) scale(2);opacity:0;}
+}
+
+.modal{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+background:white;
+padding:30px;
+border-radius:40px;
+box-shadow:0 0 40px hotpink;
+transition:.5s;
+z-index:5;
+text-align:center;
+}
+
+.modal.active{
+transform:translate(-50%,-50%) scale(1);
+}
+
+.shake{
+animation:shake .5s;
+}
+
+@keyframes shake{
+0%{transform:translateX(0);}
+25%{transform:translateX(-10px);}
+50%{transform:translateX(10px);}
+75%{transform:translateX(-10px);}
+100%{transform:translateX(0);}
+}
+
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+<div class="container" id="form1">
+<h2>Princesa A 💖</h2>
+<form>
+<input type="text" placeholder="Nombre 💕" required>
+<input type="email" placeholder="Correo 💌" required>
+<textarea rows="3" placeholder="Mensaje 🎀"></textarea>
+<button type="submit">Enviar Magia ✨</button>
+</form>
+</div>
+
+<div class="container" id="form2">
+<h2>Princesa B 👑</h2>
+<form>
+<input type="text" placeholder="Nombre 💗" required>
+<input type="email" placeholder="Correo 💞" required>
+<textarea rows="3" placeholder="Mensaje 💘"></textarea>
+<button type="submit">Enviar Energía 💎</button>
+</form>
+</div>
+
+</div>
+
+<div class="modal" id="modalMagico">
+<h3>💖✨ ENVIADO CON PODER DOBLE ✨💖</h3>
+<p>Las dos reinas activaron la energía rosa 👑</p>
+</div>
+
+<script>
+
+// corazones infinitos
+function crearCorazon(){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML=["💖","💗","💘","💕","💞"][Math.floor(Math.random()*5)];
+heart.style.left=Math.random()*100+"vw";
+heart.style.bottom="-20px";
+heart.style.fontSize=(20+Math.random()*20)+"px";
+heart.style.animationDuration=(4+Math.random()*4)+"s";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),8000);
+}
+setInterval(crearCorazon,300);
+
+// glitter automático
+function glitter(){
+let s=document.createElement("div");
+s.className="sparkle";
+s.innerHTML="✨";
+s.style.left=Math.random()*100+"vw";
+s.style.top="100vh";
+s.style.fontSize=(10+Math.random()*15)+"px";
+s.style.animationDuration="5s";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),5000);
+}
+setInterval(glitter,200);
+
+// envío doble
+document.querySelectorAll("form").forEach(form=>{
+form.addEventListener("submit",function(e){
+e.preventDefault();
+
+for(let i=0;i<80;i++){
+setTimeout(crearCorazon,i*20);
+}
+
+document.getElementById("form1").classList.add("shake");
+document.getElementById("form2").classList.add("shake");
+
+let modal=document.getElementById("modalMagico");
+modal.classList.add("active");
+
+setTimeout(()=>{
+modal.classList.remove("active");
+document.getElementById("form1").classList.remove("shake");
+document.getElementById("form2").classList.remove("shake");
+},3000);
+
+});
+});
+
+</script>
+
+</body>
+</html>
+
+
